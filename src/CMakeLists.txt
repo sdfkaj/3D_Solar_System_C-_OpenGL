@@ -1,0 +1,5 @@
+find_package(GLEW REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(glm REQUIRED)
+add_executable(SolarSystem main.cpp)
+target_link_libraries(SolarSystem PRIVATE GLEW::GLEW glfw glm::glm)
