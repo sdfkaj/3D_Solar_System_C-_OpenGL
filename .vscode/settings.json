@@ -3,6 +3,7 @@
         "iostream": "cpp",
         "GL/glew.h": "cpp",
         "GLFW/glfw3.h": "cpp",
-        "glm/glm.hpp": "cpp"
+        "glm/glm.hpp": "cpp",
+        "stb_image.h": "cpp"
     }
 }

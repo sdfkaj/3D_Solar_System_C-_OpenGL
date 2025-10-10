@@ -2,23 +2,21 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <GL/glew.h>
 
 Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) {
-    // Чтение шейдеров
+
     std::string vertexCode = readFile(vertexPath);
     std::string fragmentCode = readFile(fragmentPath);
 
-    // Компиляция
     GLuint vertexShader = compileShader(GL_VERTEX_SHADER, vertexCode);
     GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, fragmentCode);
 
-    // Создание программы
     programID = glCreateProgram();
     glAttachShader(programID, vertexShader);
     glAttachShader(programID, fragmentShader);
     glLinkProgram(programID);
 
-    // Проверка ошибок
     GLint success;
     glGetProgramiv(programID, GL_LINK_STATUS, &success);
     if (!success) {
@@ -27,7 +25,6 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) {
         std::cerr << "Shader program linking failed:\n" << infoLog << std::endl;
     }
 
-    // Удаление шейдеров
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 }

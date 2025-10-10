@@ -1,30 +1,30 @@
 #include "planet.h"
-#include <stb_image.h>
 #include <iostream>
+#include <glm/gtc/matrix_transform.hpp>
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
 
 Planet::Planet(const std::string& name, float radius, float distance, float orbitSpeed, const std::string& texturePath)
     : name(name), radius(radius), distance(distance), orbitSpeed(orbitSpeed), rotationSpeed(0.1f) {
-    // Генерация сферы (упрощённо, можно использовать icosphere)
-    mesh = Mesh(/* вершины и индексы сферы, сгенерированные заранее */);
-
-    // Загрузка текстуры
+    mesh = Mesh(32, 32);
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     int width, height, nrChannels;
+
     unsigned char* data = stbi_load(texturePath.c_str(), &width, &height, &nrChannels, 0);
     if (data) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        stbi_image_free(data);
+        glGenerateMipmap(GL_TEXTURE_2D);
     } else {
         std::cerr << "Failed to load texture: " << texturePath << std::endl;
     }
-}
+}   
 
 void Planet::update(float time) {
-    // Обновление позиции (орбита) и вращения
+
     float angle = orbitSpeed * time;
     glm::vec3 position(distance * cos(angle), 0.0f, distance * sin(angle));
     modelMatrix = glm::translate(glm::mat4(1.0f), position);
