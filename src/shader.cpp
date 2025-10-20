@@ -66,4 +66,4 @@ GLuint Shader::compileShader(GLenum type, const std::string& source) {
         std::cerr << "Shader compilation failed:\n" << infoLog << std::endl;
     }
     return shader;
-}
+} 

@@ -1,9 +1,15 @@
+
+#define SHADER_H
+
 #pragma once
 #include <string>
 #include <glm/glm.hpp>
+#include <GL/glew.h>  
+#include <GLFW/glfw3.h> 
 
 class Shader {
 public:
+
     Shader(const std::string& vertexPath, const std::string& fragmentPath);
     ~Shader();
 

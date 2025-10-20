@@ -17,4 +17,4 @@ private:
     glm::mat4 modelMatrix; 
     Mesh mesh; 
     GLuint textureID; 
-};
+}; 

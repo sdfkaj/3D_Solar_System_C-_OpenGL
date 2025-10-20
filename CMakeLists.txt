@@ -1,6 +1,21 @@
+cmake_minimum_required(VERSION 3.10)
+project(SolarSystem)
+
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+
+set(CMAKE_CXX_STANDARD 17)
+
+file(GLOB SOURCES "src/*.cpp")
+
+add_executable(SolarSystem ${SOURCES})
+
+find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(glfw3 REQUIRED)
-find_package(glm REQUIRED)
-add_executable(SolarSystem main.cpp)
-target_link_libraries(SolarSystem PRIVATE GLEW::GLEW glfw glm::glm)
-target_include_directories(SolarSystem PRIVATE ${CMAKE_SOURCE_DIR}/include)
+
+target_link_libraries(SolarSystem
+    OpenGL::GL
+    GLEW::GLEW
+    glfw
+)
